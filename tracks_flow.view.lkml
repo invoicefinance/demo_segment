@@ -1,5 +1,6 @@
 view: tracks_flow {
   derived_table: {
+    indexes: ["event_id"]
     sql: select a.event_id
       , a.session_id
       , a.track_sequence_number
@@ -26,8 +27,6 @@ and a.session_id = e.session_id
 order by a.session_id, a.track_sequence_number
  ;;
     sql_trigger_value: select count(*) from ${sessions_trk.SQL_TABLE_NAME} ;;
-    sortkeys: ["event_id", "looker_visitor_id", "session_id"]
-    distribution: "looker_visitor_id"
   }
 
   dimension: event_id {

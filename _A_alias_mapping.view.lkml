@@ -1,8 +1,7 @@
 view: page_aliases_mapping {
   derived_table: {
     sql_trigger_value: select current_date ;;
-    sortkeys: ["looker_visitor_id", "alias"]
-    distribution: "alias"
+    indexes: ["alias"]
     sql: with
 
       -- Establish all child-to-parent edges from tables (tracks, pages, aliases)
@@ -36,7 +35,7 @@ view: page_aliases_mapping {
 
       select
                   distinct anonymous_id as alias
-                  , coalesce(first_value(user_id ignore nulls)
+                  , coalesce(first_value(user_id )
                   over(
                     partition by anonymous_id
                     order by received_at
@@ -117,7 +116,7 @@ view: page_aliases_mapping {
 #             -- Only keep the oldest non-null parent for each child
 #             realiases as (
 #               select distinct alias
-#                 , first_value(next_alias ignore nulls) over(partition by alias order by realiased_at rows between unbounded preceding and unbounded following) as next_alias
+#                 , first_value(next_alias ) over(partition by alias order by realiased_at rows between unbounded preceding and unbounded following) as next_alias
 #               from all_mappings
 #             )
 #

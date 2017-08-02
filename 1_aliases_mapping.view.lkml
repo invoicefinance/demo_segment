@@ -1,8 +1,7 @@
 view: aliases_mapping {
   derived_table: {
     sql_trigger_value: select current_date ;;
-    sortkeys: ["looker_visitor_id", "alias"]
-    distribution: "alias"
+    indexes: ["alias"]
     sql: with
       all_mappings as (
         select anonymous_id
@@ -20,9 +19,9 @@ view: aliases_mapping {
 
       select
         distinct anonymous_id as alias
-        , first_value(user_id ignore nulls) OVER ()
+        , first_value(user_id ) OVER ()
 
-        , coalesce(first_value(user_id ignore nulls)
+        , coalesce(first_value(user_id)
         over(
           partition by anonymous_id
           order by received_at
