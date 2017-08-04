@@ -1,7 +1,7 @@
 view: page_facts {
   derived_table: {
-    sortkeys: ["received_at"]
-    distribution: "looker_visitor_id"
+    indexes: ["received_at"]
+#     distribution: "looker_visitor_id"
     sql_trigger_value: select count(*) from ${mapped_events.SQL_TABLE_NAME} ;;
     sql: SELECT e.event_id AS event_id
       , e.looker_visitor_id

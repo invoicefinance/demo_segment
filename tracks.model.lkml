@@ -1,4 +1,4 @@
-connection: "segment_sources"
+connection: "segment"
 
 # include all views in this project
 include: "*.view"

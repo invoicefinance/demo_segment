@@ -1,8 +1,8 @@
 view: page_aliases_mapping {
   derived_table: {
     sql_trigger_value: select current_date ;;
-    sortkeys: ["looker_visitor_id", "alias"]
-    distribution: "alias"
+    indexes: ["looker_visitor_id", "alias"]
+#     distribution: "alias"
     sql: with
 
       -- Establish all child-to-parent edges from tables (tracks, pages, aliases)
@@ -36,7 +36,7 @@ view: page_aliases_mapping {
 
       select
                   distinct anonymous_id as alias
-                  , coalesce(first_value(user_id ignore nulls)
+                  , coalesce(first_value(user_id)
                   over(
                     partition by anonymous_id
                     order by received_at
