@@ -36,11 +36,8 @@ view: page_aliases_mapping {
 
       select
                   distinct anonymous_id as alias
-<<<<<<< HEAD
                   , coalesce(first_value(user_id)
-=======
                   , coalesce(first_value(user_id )
->>>>>>> branch 'master' of git@github.com:invoicefinance/demo_segment.git
                   over(
                     partition by anonymous_id
                     order by received_at
