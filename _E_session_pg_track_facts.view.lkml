@@ -3,7 +3,7 @@ view: session_pg_trk_facts {
     # Rebuilds after track_facts rebuilds
     sql_trigger_value: select COUNT(*) from ${event_facts.SQL_TABLE_NAME} ;;
     indexes: ["session_id"]
-    # distribution: "session_id"
+
     sql: select s.session_id
         , first_referrer
         , max(t2s.received_at) as end_at

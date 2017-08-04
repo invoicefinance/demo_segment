@@ -1,7 +1,7 @@
 view: user_session_facts {
   derived_table: {
     sql_trigger_value: SELECT CURRENT_DATE ;;
-#     distribution: "looker_visitor_id"
+
     indexes: ["looker_visitor_id"]
     sql: SELECT
         looker_visitor_id

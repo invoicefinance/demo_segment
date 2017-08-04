@@ -1,8 +1,8 @@
 view: aliases_mapping {
   derived_table: {
     sql_trigger_value: select current_date ;;
-    indexes: ["looker_visitor_id", "alias"]
 #     distribution: "alias"
+    indexes: ["alias"]
     sql: with
       all_mappings as (
         select anonymous_id
@@ -20,7 +20,11 @@ view: aliases_mapping {
 
       select
         distinct anonymous_id as alias
+<<<<<<< HEAD
         , first_value(user_id) OVER ()
+=======
+        , first_value(user_id ) OVER ()
+>>>>>>> branch 'master' of git@github.com:invoicefinance/demo_segment.git
 
         , coalesce(first_value(user_id)
         over(

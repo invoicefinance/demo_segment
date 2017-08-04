@@ -3,7 +3,7 @@ view: event_facts {
     # Rebuilds after sessions rebuilds
     sql_trigger_value: select count(*) from ${sessions_pg_trk.SQL_TABLE_NAME} ;;
     indexes: ["event_id"]
-#     distribution: "event_id"
+
     sql: select t.received_at
         , t.anonymous_id
         , t.event_id
@@ -14,7 +14,11 @@ view: event_facts {
         , t.referrer as referrer
         , row_number() over(partition by s.session_id order by t.received_at) as track_sequence_number
         , row_number() over(partition by s.session_id, t.event_source order by t.received_at) as source_sequence_number
+<<<<<<< HEAD
         , first_value(t.referrer) over (partition by s.session_id order by t.received_at rows between unbounded preceding and unbounded following) as first_referrer
+=======
+        , first_value(t.referrer ) over (partition by s.session_id order by t.received_at rows between unbounded preceding and unbounded following) as first_referrer
+>>>>>>> branch 'master' of git@github.com:invoicefinance/demo_segment.git
       from ${mapped_events.SQL_TABLE_NAME} as t
       left join ${sessions_pg_trk.SQL_TABLE_NAME} as s
       on t.looker_visitor_id = s.looker_visitor_id
